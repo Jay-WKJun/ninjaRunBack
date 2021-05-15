@@ -2,8 +2,16 @@ var express = require("express");
 var router = express.Router();
 
 /* GET home page. */
-router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
+router.get("/record", function(req, res, next) {
+  console.log("rank");
+});
+
+router.get("/record/:name", function(req, res, next) {
+
+});
+
+router.post("/result", function(req, res, next) {
+
 });
 
 module.exports = router;
