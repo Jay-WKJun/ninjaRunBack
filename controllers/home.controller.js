@@ -26,12 +26,20 @@ module.exports.saveRecord = async (req, res, next) => {
   } = req;
 
   try {
-    const record = new Record({
-      name,
-      score
-    });
+    const alreadySavedUser = await Record.findOne({ name }).lean();
 
-    await record.save();
+    if (!alreadySavedUser) {
+      const record = new Record({
+        name,
+        score
+      });
+
+      await record.save();
+
+      return;
+    }
+
+    await Record.findOneAndUpdate({ name }, { $set: { score }});
 
     res.json({
       result: "success"
