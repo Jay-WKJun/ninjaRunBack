@@ -39,7 +39,9 @@ module.exports.saveRecord = async (req, res, next) => {
       return;
     }
 
-    await Record.findOneAndUpdate({ name }, { $set: { score }});
+    if (alreadySavedUser.score < score) {
+      await Record.findOneAndUpdate({ name }, { $set: { score }});
+    }
 
     res.json({
       result: "success"
